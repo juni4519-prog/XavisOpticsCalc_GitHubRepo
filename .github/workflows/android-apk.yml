@@ -9,10 +9,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
 
-    defaults:
-      run:
-        working-directory: XavisOpticsCalc
-
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -29,16 +25,23 @@ jobs:
           api-level: 34
           build-tools: 34.0.0
 
-      - name: Gradle wrapper permissions
-        run: chmod +x ./gradlew
+      # gradlew가 있는 폴더로 이동 후 권한 부여
+      - name: Make gradlew executable
+        run: |
+          cd XavisOpticsCalc
+          ls -la
+          chmod +x ./gradlew
 
+      # 실제 빌드 (폴더 이동 후 wrapper 실행)
       - name: Build Debug APK
-        run: ./gradlew --no-daemon --stacktrace :app:assembleDebug
+        run: |
+          cd XavisOpticsCalc
+          ./gradlew --version
+          ./gradlew --no-daemon --stacktrace :app:assembleDebug
 
+      # 산출물 업로드 (리포 루트 기준 경로)
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
           name: app-debug
           path: XavisOpticsCalc/app/build/outputs/apk/debug/*.apk
-          if-no-files-found: error
-          retention-days: 14
