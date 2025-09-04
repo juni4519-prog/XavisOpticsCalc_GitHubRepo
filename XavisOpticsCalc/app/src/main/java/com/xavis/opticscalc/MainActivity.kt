@@ -25,9 +25,7 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         setContent {
             XavisTheme {
-                Surface(Modifier.fillMaxSize()) {
-                    OpticsApp()
-                }
+                Surface(Modifier.fillMaxSize()) { OpticsApp() }
             }
         }
     }
@@ -37,13 +35,12 @@ class MainActivity : ComponentActivity() {
 fun OpticsApp() {
     val ctx = LocalContext.current
     val focus = LocalFocusManager.current
-
     val schema = remember { FormSchemaLoader.load(ctx) }
-    val rules = remember { ConditionalRules.load(ctx) } // (지금 단계에선 사용 X 이어도 OK)
+    val rules = remember { ConditionalRules.load(ctx) } // 아직은 미사용이어도 OK
     val sheet = schema["공식"]
 
     Column(
-        modifier = Modifier
+        Modifier
             .fillMaxSize()
             .padding(16.dp)
             .verticalScroll(rememberScrollState()),
@@ -64,16 +61,15 @@ fun OpticsApp() {
                     onValueChange = { v -> inputStates[field.cell] = v.filter { it.isDigit() || it == '.' } },
                     label = { Text("${field.label} [${field.cell}]") },
                     singleLine = true,
-                    // ✅ 여기 한 줄이 핵심: 키보드 옵션을 정확히 파라미터로 전달
-                    keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal),
+                    // ✅ 반드시 괄호 안의 named parameter로! (바깥에 쓰면 에러)
+                    keyboardOptions = KeyboardOptions.Default.copy(
+                        keyboardType = KeyboardType.Number
+                    ),
                     modifier = Modifier.fillMaxWidth()
                 )
             }
 
-            Button(
-                onClick = { focus.clearFocus() },
-                modifier = Modifier.align(Alignment.End)
-            ) {
+            Button(onClick = { focus.clearFocus() }, modifier = Modifier.align(Alignment.End)) {
                 Text("계산")
             }
 
@@ -85,7 +81,7 @@ fun OpticsApp() {
             Text("결과(수식 셀):", style = MaterialTheme.typography.titleMedium)
             sheet.formulas.forEach { f ->
                 Row(
-                    modifier = Modifier.fillMaxWidth(),
+                    Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceBetween
                 ) {
                     Text("${f.label} [${f.cell}]")
