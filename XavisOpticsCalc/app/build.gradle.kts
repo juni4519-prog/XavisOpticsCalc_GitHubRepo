@@ -3,14 +3,21 @@ plugins {
     kotlin("android")
 }
 
-android {
-    namespace = "com.xavis.opticscalc"   // 기존과 동일하게 유지
-    compileSdk = 34
+kotlin {
+    jvmToolchain(17)
+}
 
-    defaultConfig {
-        minSdk = 24
-        targetSdk = 34
+android {
+    // ... 기존 설정들 (namespace/compileSdk/defaultConfig/compose 등) 그대로 두고
+
+    compileOptions {
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
+    kotlinOptions {
+        jvmTarget = "17"
+    }
+}
 
     // ✅ Compose 사용 선언
     buildFeatures { compose = true }
