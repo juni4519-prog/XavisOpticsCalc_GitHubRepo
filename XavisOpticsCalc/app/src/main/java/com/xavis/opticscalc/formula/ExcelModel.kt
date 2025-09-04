@@ -1,45 +1,24 @@
 package com.xavis.opticscalc.formula
 
-import kotlin.math.abs
-import kotlin.math.ceil
-import kotlin.math.floor
-import kotlin.math.max
-import kotlin.math.min
-import kotlin.math.pow
-import kotlin.math.round
-
-/**
- * ExcelModel: 시트 계산 엔진의 최소 버전
- * - 지금은 빌드 통과가 목적이라 결과를 비워서 반환합니다.
- * - 실제 수식 로직은 eval_Sheet() 내부 TODO 위치에 채워 넣으세요.
- */
 object ExcelModel {
-
-    // ── Excel 유틸 함수(엑셀 대체) ──
-    fun ROUND(value: Double, digits: Int): Double {
-        val f = 10.0.pow(digits)
-        return round(value * f) / f
-    }
-
-    fun ROUNDUP(value: Double, digits: Int): Double {
-        val f = 10.0.pow(digits)
-        return ceil(value * f) / f
-    }
-
-    fun ROUNDDOWN(value: Double, digits: Int): Double {
-        val f = 10.0.pow(digits)
-        return floor(value * f) / f
-    }
-
-    fun MAX(a: Double, b: Double): Double = max(a, b)
-    fun MIN(a: Double, b: Double): Double = min(a, b)
-    fun ABS(x: Double): Double = abs(x)
-    fun IF(cond: Boolean, t: Double, f: Double): Double = if (cond) t else f
-
-    // ── 시트 평가 ──
+    /**
+     * 입력:  "A1" -> 1.23 같은 숫자 맵
+     * 출력:  "D15" 같은 수식 셀 결과 맵
+     */
     fun eval_Sheet(inputs: Map<String, Double>): Map<String, Double> {
-        // 예) val E4 = inputs["E4"] ?: 0.0
-        // TODO: 실제 수식 계산을 여기에 작성하고 결과 맵을 반환하세요.
-        return emptyMap()
+        val out = mutableMapOf<String, Double>()
+
+        // ----- 예시: 실제 수식으로 교체하세요 -----
+        // e.g. 공식!D15 = A1 + A2
+        val a1 = inputs["A1"] ?: 0.0
+        val a2 = inputs["A2"] ?: 0.0
+        out["D15"] = a1 + a2
+
+        // e.g. 공식!E15 = if (D15 < 3) D15 * 2 else D15
+        val d15 = out["D15"] ?: 0.0
+        out["E15"] = if (d15 < 3.0) d15 * 2 else d15
+        // --------------------------------------
+
+        return out
     }
 }
