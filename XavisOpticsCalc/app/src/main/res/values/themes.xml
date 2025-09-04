@@ -1,3 +1,4 @@
 <resources>
-  <style name="Theme.XavisOpticsCalc" parent="Theme.Material3.Light.NoActionBar"/>
+    <!-- 머티리얼3 기본 DayNight 테마를 부모로 사용 -->
+    <style name="Theme.XavisOpticsCalc" parent="Theme.Material3.DayNight.NoActionBar" />
 </resources>
