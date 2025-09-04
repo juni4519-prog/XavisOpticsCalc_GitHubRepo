@@ -1,0 +1,16 @@
+{
+  "rules": [
+    {
+      "sheet": "공식",
+      "cells": [
+        "D15",
+        "E15"
+      ],
+      "op": "<",
+      "value": 3.0,
+      "color": "#FFEB3B",
+      "label_hint": "PIXEL-Y"
+    }
+  ],
+  "default_input_detection": "non-formula-numeric"
+}

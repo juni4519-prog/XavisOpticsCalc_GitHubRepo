@@ -1,0 +1,239 @@
+{
+  "공식": {
+    "inputs": [
+      {
+        "cell": "D3",
+        "label": "Focal spot",
+        "default": 5.0
+      },
+      {
+        "cell": "D5",
+        "label": "FID",
+        "default": 600.0
+      },
+      {
+        "cell": "D6",
+        "label": "배율",
+        "default": 20.0
+      },
+      {
+        "cell": "D9",
+        "label": "ACTIVE AREA SIZE",
+        "default": 280.3
+      },
+      {
+        "cell": "E9",
+        "label": "E9",
+        "default": 240.0
+      },
+      {
+        "cell": "D10",
+        "label": "PIXEL PITCH",
+        "default": 50.0
+      },
+      {
+        "cell": "E10",
+        "label": "E10",
+        "default": 50.0
+      },
+      {
+        "cell": "D12",
+        "label": "FPS",
+        "default": 10.0
+      },
+      {
+        "cell": "D13",
+        "label": "요구 분해능",
+        "default": 3.0
+      },
+      {
+        "cell": "D16",
+        "label": "average",
+        "default": 35.0
+      },
+      {
+        "cell": "D17",
+        "label": "제품사이즈",
+        "default": 280.0
+      },
+      {
+        "cell": "E17",
+        "label": "E17",
+        "default": 280.0
+      },
+      {
+        "cell": "D21",
+        "label": "이동시간",
+        "default": 0.1
+      }
+    ],
+    "formulas": [
+      {
+        "cell": "E3",
+        "label": "E3",
+        "formula": "=D3"
+      },
+      {
+        "cell": "D4",
+        "label": "FOD",
+        "formula": "=D5/D6"
+      },
+      {
+        "cell": "E4",
+        "label": "=D5/D6",
+        "formula": "=D4"
+      },
+      {
+        "cell": "E5",
+        "label": "E5",
+        "formula": "=D5"
+      },
+      {
+        "cell": "E6",
+        "label": "E6",
+        "formula": "=E5/E4"
+      },
+      {
+        "cell": "D7",
+        "label": "FOV(OBJECT)",
+        "formula": "=D9/D6"
+      },
+      {
+        "cell": "E7",
+        "label": "=D9/D6",
+        "formula": "=E9/E6"
+      },
+      {
+        "cell": "D11",
+        "label": "PIXEL 수",
+        "formula": "=D9/(D10/1000)"
+      },
+      {
+        "cell": "E11",
+        "label": "=D9/(D10/1000)",
+        "formula": "=E9/(E10/1000)"
+      },
+      {
+        "cell": "E12",
+        "label": "E12",
+        "formula": "=D12"
+      },
+      {
+        "cell": "E13",
+        "label": "E13",
+        "formula": "=D13"
+      },
+      {
+        "cell": "D14",
+        "label": "사이즈(디텍터의영상)",
+        "formula": "=(D13/1000)*D6"
+      },
+      {
+        "cell": "E14",
+        "label": "=(D13/1000)*D6",
+        "formula": "=(E13/1000)*E6"
+      },
+      {
+        "cell": "D15",
+        "label": "PIXEL수(디텍터의영상)",
+        "formula": "=D14/(D10/1000)"
+      },
+      {
+        "cell": "E15",
+        "label": "=D14/(D10/1000)",
+        "formula": "=E14/(E10/1000)"
+      },
+      {
+        "cell": "E16",
+        "label": "E16",
+        "formula": "=D16"
+      },
+      {
+        "cell": "D18",
+        "label": "필요촬영 횟수",
+        "formula": "=ROUNDUP((D17*1.1/D7),0)"
+      },
+      {
+        "cell": "E18",
+        "label": "=ROUNDUP((D17*1.1/D7),0)",
+        "formula": "=ROUNDUP((E17*1.1/E7),0)"
+      },
+      {
+        "cell": "D19",
+        "label": "D19",
+        "formula": "=D18*E18"
+      },
+      {
+        "cell": "D20",
+        "label": "s/fov",
+        "formula": "=D16/D12"
+      },
+      {
+        "cell": "D23",
+        "label": "D23",
+        "formula": "=D19*(D20+D21)"
+      },
+      {
+        "cell": "D24",
+        "label": "D24",
+        "formula": "=D23/60"
+      },
+      {
+        "cell": "D25",
+        "label": "D25",
+        "formula": "=D23/3600"
+      },
+      {
+        "cell": "D26",
+        "label": "D26",
+        "formula": "=D25/24"
+      }
+    ]
+  },
+  "공식2": {
+    "inputs": [
+      {
+        "cell": "I3",
+        "label": "FOD",
+        "default": 100.0
+      },
+      {
+        "cell": "I5",
+        "label": "FID",
+        "default": 490.0
+      },
+      {
+        "cell": "I7",
+        "label": "FOV(OBJECT)",
+        "default": 20.0
+      },
+      {
+        "cell": "I11",
+        "label": "PIXEL PITCH",
+        "default": 49.5
+      }
+    ],
+    "formulas": [
+      {
+        "cell": "I6",
+        "label": "배율",
+        "formula": "=I5/I3"
+      },
+      {
+        "cell": "I9",
+        "label": "DETECTOR SIZE",
+        "formula": "=I10/25.4"
+      },
+      {
+        "cell": "I10",
+        "label": "DETECTOR SIZE",
+        "formula": "=I7*(I5/I3)"
+      },
+      {
+        "cell": "I12",
+        "label": "PIXEL 수(OBJECT)",
+        "formula": "=I7/(I11/1000)"
+      }
+    ]
+  }
+}
