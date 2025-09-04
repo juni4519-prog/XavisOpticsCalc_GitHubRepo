@@ -1,13 +1,13 @@
 name: Build Android APK
 
 on:
-  workflow_dispatch: {}          # 수동 실행만 (안정화되면 push 트리거 추가해도 됨)
+  workflow_dispatch: {}
   # push:
   #   branches: [ main ]
 
 concurrency:
   group: build-android
-  cancel-in-progress: true       # 이전 실행 자동 취소
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -15,40 +15,26 @@ jobs:
     timeout-minutes: 30
 
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
+      - uses: actions/setup-java@v4
         with:
           distribution: temurin
           java-version: '17'
           cache: gradle
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      - uses: android-actions/setup-android@v3
         with:
           api-level: 34
           build-tools: 34.0.0
 
-      # (선택) 다음 빌드부터 더 빠르게: Gradle 캐시 세팅
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@v3
-
-      # gradlew 위치가 XavisOpticsCalc 폴더이므로, cd 후 권한 부여
-      - name: Make gradlew executable
-        run: |
-          cd XavisOpticsCalc
-          ls -la
-          chmod +x ./gradlew
-
-      # ✅ 반드시 한 단계 안에서 `cd` 후 `./gradlew` 실행
+      # ✅ gradle 공식 액션으로 빌드 (셸 재귀 이슈 회피)
       - name: Build Debug APK
-        run: |
-          cd XavisOpticsCalc
-          ./gradlew --no-daemon --stacktrace :app:assembleDebug
+        uses: gradle/gradle-build-action@v3
+        with:
+          arguments: :app:assembleDebug
+          build-root-directory: XavisOpticsCalc
 
-      # 산출물 업로드 (리포 루트 기준 경로)
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
