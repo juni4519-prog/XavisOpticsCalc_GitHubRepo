@@ -11,11 +11,11 @@ import kotlin.math.round
 /**
  * ExcelModel: 시트 계산 엔진의 최소 버전
  * - 지금은 빌드 통과가 목적이라 결과를 비워서 반환합니다.
- * - 실제 수식 로직은 아래 TODO 위치에 채워 넣으면 됩니다.
+ * - 실제 수식 로직은 eval_Sheet() 내부 TODO 위치에 채워 넣으세요.
  */
 object ExcelModel {
 
-    // ───────── Excel 유틸 함수(엑셀 대체) ─────────
+    // ── Excel 유틸 함수(엑셀 대체) ──
     fun ROUND(value: Double, digits: Int): Double {
         val f = 10.0.pow(digits)
         return round(value * f) / f
@@ -36,15 +36,10 @@ object ExcelModel {
     fun ABS(x: Double): Double = abs(x)
     fun IF(cond: Boolean, t: Double, f: Double): Double = if (cond) t else f
 
-    // ───────── 시트 평가 함수 ─────────
-    /**
-     * @param inputs  시트의 입력 셀 값 맵 (예: "E4" -> 12.3)
-     * @return        계산된 결과 셀 값 맵 (예: "D15" -> 1.23)
-     *
-     * 현재는 빈 결과를 반환합니다. (UI에서는 NaN으로 표시)
-     * TODO: 실제 수식 계산을 여기에 채워 넣으세요.
-     */
+    // ── 시트 평가 ──
     fun eval_Sheet(inputs: Map<String, Double>): Map<String, Double> {
-        // 예시) 입력값 꺼내 쓰는 방법
-        // val E4 = inputs["E4"] ?: 0.0
-        // val E5 = inputs["E5"] ?: 0.0
+        // 예) val E4 = inputs["E4"] ?: 0.0
+        // TODO: 실제 수식 계산을 여기에 작성하고 결과 맵을 반환하세요.
+        return emptyMap()
+    }
+}
