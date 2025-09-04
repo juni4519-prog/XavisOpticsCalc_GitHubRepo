@@ -11,7 +11,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: XavisOpticsCalc   # gradlew가 있는 폴더
+        working-directory: XavisOpticsCalc
 
     steps:
       - name: Checkout
@@ -29,19 +29,11 @@ jobs:
           api-level: 34
           build-tools: 34.0.0
 
-      # 🔍 gradlew 존재 확인 (디버깅용)
-      - name: List files
-        run: ls -la
-
-      # ✅ 실행 권한 부여
       - name: Gradle wrapper permissions
         run: chmod +x ./gradlew
 
-      # ✅ gradle 실행 확인 후 빌드
       - name: Build Debug APK
-        run: |
-          ./gradlew --version
-          ./gradlew --no-daemon --stacktrace :app:assembleDebug
+        run: ./gradlew --no-daemon --stacktrace :app:assembleDebug
 
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
