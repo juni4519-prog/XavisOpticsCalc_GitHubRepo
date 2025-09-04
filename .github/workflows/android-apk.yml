@@ -2,6 +2,7 @@ name: Build Android APK
 
 on:
   workflow_dispatch: {}
+  # 안정될 때까지 push 트리거는 꺼두세요
   # push:
   #   branches: [ main ]
 
@@ -28,13 +29,26 @@ jobs:
           api-level: 34
           build-tools: 34.0.0
 
-      # ✅ gradle 공식 액션으로 빌드 (셸 재귀 이슈 회피)
-      - name: Build Debug APK
+      # 1) 정상 Gradle(설치형)로 프로젝트 안에서 "wrapper"를 다시 생성
+      #    → 업로드 중 손상된 gradlew를 완전히 대체
+      - name: Generate fresh Gradle wrapper
         uses: gradle/gradle-build-action@v3
         with:
-          arguments: :app:assembleDebug
-          build-root-directory: XavisOpticsCalc
+          gradle-version: 8.7
+          arguments: -p XavisOpticsCalc wrapper
 
+      # 2) 새로 생성된 gradlew에 실행 권한 부여
+      - name: Make wrapper executable
+        run: chmod +x XavisOpticsCalc/gradlew
+
+      # 3) 방금 생성한 "정상 래퍼"로 빌드 실행 (cd 필요 없음)
+      - name: Build Debug APK (with wrapper)
+        uses: gradle/gradle-build-action@v3
+        with:
+          build-root-directory: XavisOpticsCalc
+          arguments: :app:assembleDebug
+
+      # 4) 산출물 업로드
       - name: Upload APK artifact
         uses: actions/upload-artifact@v4
         with:
